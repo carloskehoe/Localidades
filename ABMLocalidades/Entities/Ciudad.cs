@@ -10,8 +10,8 @@ namespace ABMLocalidades.Entities
     public class Ciudad
     {
         
-        public int IdLocalidad { get; set; }
-        public string nombreLocalidad { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
         public string IdProvincia { get; set; }
         
 

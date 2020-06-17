@@ -10,8 +10,8 @@ namespace ABMLocalidades.Entities
     public class Provincia
     {
        
-        public string IdProvincia { get; set;}
-        public string NombreProvincia { get; set; }
+        public string Id { get; set;}
+        public string Nombre { get; set; }
         
         public string IdPais { get; set; }
     }

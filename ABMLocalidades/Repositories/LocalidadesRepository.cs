@@ -39,7 +39,7 @@ namespace ABMLocalidades.Repositories
             List<Ciudad> Ciudades = new List<Ciudad>();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                Ciudades = db.Query<Ciudad>($"Select * From Localidad where IdProvincia = {ProvinciaId}").ToList();
+                Ciudades = db.Query<Ciudad>($"Select * From Ciudades where IdProvincia = {ProvinciaId}").ToList();
             }
             return Ciudades;
         }
@@ -50,7 +50,7 @@ namespace ABMLocalidades.Repositories
             {
                 try
                 {
-                    ciudad = db.QueryFirstOrDefault<Ciudad>($"INSERT INTO [dbo].[Localidad]([nombreLocalidad],[IdProvincia])VALUES('{ciudad.nombreLocalidad}', {ciudad.IdProvincia})");
+                    ciudad = db.QueryFirstOrDefault<Ciudad>($"INSERT INTO [dbo].[Ciudades]([Nombre],[IdProvincia])VALUES('{ciudad.Nombre}', {ciudad.IdProvincia})");
                 }
                 catch (Exception e)
                 {

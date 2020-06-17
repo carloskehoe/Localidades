@@ -9,8 +9,8 @@ namespace ABMLocalidades.Entities
     public class Pais
 
     {
-        public string IdPais { get; set;}
-        public string NombrePais { get; set;}
+        public string Id { get; set;}
+        public string Nombre { get; set;}
 
 
     }
