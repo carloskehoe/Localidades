@@ -34,17 +34,24 @@ namespace ABMLocalidades.Controllers
             return _localidadesRepository.GetProvincias(id);
 
         }
+
         [HttpGet("provincia/{id}/ciudad")]
         public IEnumerable<Ciudad> GetCiudad(int id)
         {
             return _localidadesRepository.GetCiudades(id);
           
         }
+
         [HttpPost("ciudad")]
-        public Ciudad InsertCiudades([FromBody] Ciudad ciudad)
+        public Ciudad InsertCiudad([FromBody] Ciudad ciudad)
         {
             return _localidadesRepository.InsertCiudad(ciudad);
         }
 
+        [HttpPut("ciudad")]
+        public Ciudad UpdateCiudad([FromBody] Ciudad ciudad)
+        {
+            return _localidadesRepository.InsertCiudad(ciudad);
+        }
     }
 }
