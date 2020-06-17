@@ -61,5 +61,14 @@ namespace ABMLocalidades.Repositories
             }
             return ciudad;
         }
+
+        public Ciudad UpdateCiudad(Ciudad ciudad)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                ciudad = db.QueryFirstOrDefault<Ciudad>($"UPDATE Ciudades SET Nombre = '{ciudad.Nombre}' WHERE Id = {ciudad.Id}");
+            }
+            return ciudad;
+        }
     }
 }

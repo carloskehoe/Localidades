@@ -15,5 +15,7 @@ namespace ABMLocalidades.Repositories
         List<Ciudad> GetCiudades(int provinciaId);
 
         Ciudad InsertCiudad(Ciudad ciudad);
+
+        Ciudad UpdateCiudad(Ciudad ciudad);
     }
 }

@@ -51,7 +51,7 @@ namespace ABMLocalidades.Controllers
         [HttpPut("ciudad")]
         public Ciudad UpdateCiudad([FromBody] Ciudad ciudad)
         {
-            return _localidadesRepository.InsertCiudad(ciudad);
+            return _localidadesRepository.UpdateCiudad(ciudad);
         }
     }
 }
