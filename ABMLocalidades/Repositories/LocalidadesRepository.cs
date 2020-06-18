@@ -22,8 +22,7 @@ namespace ABMLocalidades.Repositories
             List<Pais> paises = new List<Pais>();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("");
+                
                 paises = db.Query<Pais>("SP_PaisesGet").ToList();
             }
             return paises;
