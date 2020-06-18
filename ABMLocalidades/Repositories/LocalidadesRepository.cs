@@ -16,41 +16,54 @@ namespace ABMLocalidades.Repositories
         {
             _connectionString = connectionString;
         }
+
         public List<Pais> GetPaises()
         {
             List<Pais> paises = new List<Pais>();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                paises = db.Query<Pais>("Select * From Pais").ToList();
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("");
+                paises = db.Query<Pais>("SP_PaisesGet").ToList();
             }
             return paises;
         }
+
         public List<Provincia> GetProvincias(int paisId)
         {
             List<Provincia> provincias = new List<Provincia>();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                provincias = db.Query<Provincia>($"Select * From Provincia where IdPais = {paisId}").ToList();
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("paisId", paisId);
+                provincias = db.Query<Provincia>($"SP_ProvinciasGet", parameters, commandType: System.Data.CommandType.StoredProcedure).ToList();
             }
             return provincias;
         }
-        public List<Ciudad> GetCiudades(int ProvinciaId)
+
+        public List<Ciudad> GetCiudades(int idProvincia)
         {
-            List<Ciudad> Ciudades = new List<Ciudad>();
+            List<Ciudad> ciudades = new List<Ciudad>();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                Ciudades = db.Query<Ciudad>($"Select * From Ciudades where IdProvincia = {ProvinciaId}").ToList();
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("IdProvincia", idProvincia);
+                ciudades = db.Query<Ciudad>("SP_CiudadesGet", parameters, commandType: System.Data.CommandType.StoredProcedure).ToList();
             }
-            return Ciudades;
+            return ciudades;
         }
+
         public Ciudad InsertCiudad(Ciudad ciudad)
         {
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("Nombre", ciudad.Nombre);
+                parameters.Add("IdProvincia", ciudad.IdProvincia);
                 try
                 {
-                    ciudad = db.QueryFirstOrDefault<Ciudad>($"INSERT INTO [dbo].[Ciudades]([Nombre],[IdProvincia])VALUES('{ciudad.Nombre}', {ciudad.IdProvincia})");
+                    ciudad = db.QueryFirstOrDefault<Ciudad>("SP_CiudadesInsert",parameters,commandType: System.Data.CommandType.StoredProcedure);
                 }
                 catch (Exception e)
                 {
@@ -66,7 +79,10 @@ namespace ABMLocalidades.Repositories
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                ciudad = db.QueryFirstOrDefault<Ciudad>($"UPDATE Ciudades SET Nombre = '{ciudad.Nombre}' WHERE Id = {ciudad.Id}");
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("Nombre", ciudad.Nombre);
+                parameters.Add("Id", ciudad.Id);
+                ciudad = db.QueryFirstOrDefault<Ciudad>("SP_CiudadesUpdate", parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
             return ciudad;
         }
