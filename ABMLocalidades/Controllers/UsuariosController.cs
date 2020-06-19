@@ -8,29 +8,29 @@ namespace ABMLocalidades.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsuariosController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        public UsersController(IUserRepository userRepository)
+        private readonly IUsuariosRepository _userRepository;
+        public UsuariosController(IUsuariosRepository userRepository)
         {
 
             _userRepository = userRepository;
         }
         // GET: api/<UsersController>
         [HttpGet("user")]
-        public User GetUser(int id)
+        public Usuario GetUser(int id)
         {
             return _userRepository.GetUserId(id);
         }
 
         [HttpPost("user")]
-        public User InsertUser([FromBody] User user)
+        public Usuario InsertUser([FromBody] Usuario user)
         {
             return _userRepository.InsertUser(user);
         }
 
         [HttpGet("{id}/user")]
-        public User GetUserId(int id)
+        public Usuario GetUserId(int id)
         {
             return _userRepository.GetUserId(id);
         }

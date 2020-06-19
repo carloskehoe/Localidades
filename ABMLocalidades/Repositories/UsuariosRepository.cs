@@ -9,41 +9,41 @@ using System.Threading.Tasks;
 
 namespace ABMLocalidades.Repositories
 {
-    public class UserRepository: IUserRepository
+    public class UsuariosRepository: IUsuariosRepository
     {
         string _connectionString;
-        public UserRepository(string connectionString)
+        public UsuariosRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
-        public User GetUser(int id)
+        public Usuario GetUser(int id)
         {
-            User user = new User();
+            Usuario user = new Usuario();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                user = db.QueryFirst<User>("Select top 1 * From Users");
+                user = db.QueryFirst<Usuario>("Select top 1 * From Users");
             }
             return user;
         }
 
-        public User GetUserId(int id)
+        public Usuario GetUserId(int id)
         {
-            User user = new User();
+            Usuario user = new Usuario();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                user = db.QueryFirst<User>($"Select * From Users where Id = {id}");
+                user = db.QueryFirst<Usuario>($"Select * From Users where Id = {id}");
             }
             return user;
         }
 
-        public User InsertUser(User user)
+        public Usuario InsertUser(Usuario user)
         {
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
                 try
                 {
-                    user = db.QueryFirstOrDefault<User>($"INSERT INTO [dbo].[Users]([Id],[Nombre],[IdLocalidad])VALUES({user.Id}, '{user.Nombre}', {user.IdLocalidad})");
+                    user = db.QueryFirstOrDefault<Usuario>($"INSERT INTO [dbo].[Users]([Id],[Nombre],[IdCiudad])VALUES({user.Id}, '{user.Nombre}', {user.IdCiudad})");
                 }
                 catch (Exception e)
                 {

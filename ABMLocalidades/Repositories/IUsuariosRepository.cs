@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ABMLocalidades.Repositories
 {
-    public interface IUserRepository
+    public interface IUsuariosRepository
     {
-        User GetUser(int id);
+        Usuario GetUser(int id);
 
-        User GetUserId(int id);
+        Usuario GetUserId(int id);
 
-        User InsertUser(User user);
+        Usuario InsertUser(Usuario user);
+        
     }
 }

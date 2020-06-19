@@ -39,7 +39,7 @@ namespace ABMLocalidades
             }));
 
             string ABMLocalidades = Configuration.GetConnectionString("ABMLocalidades");
-            services.AddScoped<IUserRepository, UserRepository>(s => new UserRepository(ABMLocalidades));
+            services.AddScoped<IUsuariosRepository, UsuariosRepository>(s => new UsuariosRepository(ABMLocalidades));
             services.AddScoped<ILocalidadesRepository, LocalidadesRepository>(s => new LocalidadesRepository(ABMLocalidades));
             //services.AddScoped<IAppDbContext, AppDbContext>(s => new AppDbContext(ABMLocalidades));
         }
