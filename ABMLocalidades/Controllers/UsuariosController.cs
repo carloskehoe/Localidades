@@ -1,6 +1,7 @@
 ﻿using ABMLocalidades.Entities;
 using ABMLocalidades.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices.ComTypes;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,6 +23,34 @@ namespace ABMLocalidades.Controllers
         {
             return _userRepository.GetUserId(id);
         }
+
+        [HttpPost("login")]
+        public string GetLogin([FromBody] Login login)
+        {
+            var usuario = _userRepository.GetUserByMail(login.Email);
+            if(usuario==null)
+            { 
+               
+            return "Usuario no encontrado";
+            }
+            if (usuario.Clave == login.Password)
+            {
+
+                if (usuario.Email != login.Email)
+                {
+                    return "Usuario no encontrado";
+
+                }
+                return "Usuario Logeado";
+            }
+            else 
+                return "usuario o password incorrecto";
+            
+
+
+        }
+
+            
 
         [HttpPost("user")]
         public Usuario InsertUser([FromBody] Usuario user)

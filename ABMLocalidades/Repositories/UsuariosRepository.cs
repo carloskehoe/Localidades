@@ -26,11 +26,27 @@ namespace ABMLocalidades.Repositories
             return user;
         }
 
+        public Usuario GetUserByMail(string mail)
+        {
+           // Usuario usuario = new Usuario(); // solo para recibir lo de la base no usar como parametro
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("Email", mail);
+
+                return db.QueryFirstOrDefault<Usuario>("SP_UsuarioGetByMail", parameters, commandType: System.Data.CommandType.StoredProcedure);
+           //return usuario;
+            }
+
+        }
+
+      
         public Usuario GetUserId(int id)
         {
             Usuario user = new Usuario();
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
+
                 user = db.QueryFirst<Usuario>($"Select * From Users where Id = {id}");
             }
             return user;
@@ -41,9 +57,15 @@ namespace ABMLocalidades.Repositories
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("Nombre", user.Nombre);
+                parameters.Add("IdCiudad", user.IdCiudad);
+                parameters.Add("IdRol", user.IdRol);
+                parameters.Add("Email", user.Email);
+                parameters.Add("Clave", user.Clave);
                 try
                 {
-                    user = db.QueryFirstOrDefault<Usuario>($"INSERT INTO [dbo].[Users]([Id],[Nombre],[IdCiudad])VALUES({user.Id}, '{user.Nombre}', {user.IdCiudad})");
+                    user = db.QueryFirstOrDefault<Usuario>("SP_UsuarioInsert", parameters, commandType: System.Data.CommandType.StoredProcedure);
                 }
                 catch (Exception e)
                 {

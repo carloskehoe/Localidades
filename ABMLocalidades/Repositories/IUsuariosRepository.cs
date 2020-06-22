@@ -1,4 +1,5 @@
 ﻿using ABMLocalidades.Entities;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ABMLocalidades.Repositories
         Usuario GetUser(int id);
 
         Usuario GetUserId(int id);
+        Usuario GetUserByMail(string mail);
 
         Usuario InsertUser(Usuario user);
         
