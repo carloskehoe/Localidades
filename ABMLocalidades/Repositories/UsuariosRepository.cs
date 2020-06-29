@@ -16,6 +16,18 @@ namespace ABMLocalidades.Repositories
         {
             _connectionString = connectionString;
         }
+
+        public Compra GetCompra(int idUsuario)
+        {
+            Compra compra = new Compra();
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("Idusuario", idUsuario);
+                compra = db.QueryFirstOrDefault<Compra>("SP_ComprasGet", parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+            return compra;
+        }
         public Usuario GetUser(int id)
         {
             Usuario user = new Usuario();

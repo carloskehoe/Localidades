@@ -17,6 +17,12 @@ namespace ABMLocalidades.Controllers
 
             _userRepository = userRepository;
         }
+
+        [HttpGet("{id}/compra")]
+        public Compra GetCompra(int id)
+        {
+            return _userRepository.GetCompra(id);
+        }
         // GET: api/<UsersController>
         [HttpGet("user")]
         public Usuario GetUser(int id)

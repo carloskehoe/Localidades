@@ -15,6 +15,8 @@ namespace ABMLocalidades.Repositories
         Usuario GetUserByMail(string mail);
 
         Usuario InsertUser(Usuario user);
+
+        Compra GetCompra(int id);
         
     }
 }
